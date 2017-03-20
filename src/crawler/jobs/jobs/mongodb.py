@@ -5,8 +5,8 @@ from pymongo import MongoClient
 
 class Mongodb():
     def __init__(self, ip, port, dbname, collection):
-        client = MongoClient(ip, port)
-        self.db = client[dbname]
+        self.client = MongoClient(ip, port)
+        self.db = self.client[dbname]
         self.coll = self.db[collection]
 
     def save(self, document):
@@ -25,7 +25,7 @@ class Mongodb():
         pass
 
     def __del__(self):
-        pass
+        self.client.close()
 
 
 if __name__ == "__main__":
